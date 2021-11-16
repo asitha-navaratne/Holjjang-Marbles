@@ -29,7 +29,21 @@ const generateCpuBet = (score) =>
 
 const determineWinner = (call, playerBet, cpuBet) => {
   if (isPlayersTurn) {
+    return call === "even"
+      ? cpuBet % 2 === 0
+        ? true
+        : false
+      : cpuBet % 2 === 0
+      ? false
+      : true;
   } else {
+    return call === "even"
+      ? playerBet % 2 === 0
+        ? false
+        : true
+      : cpuBet % 2 === 0
+      ? true
+      : false;
   }
 };
 
