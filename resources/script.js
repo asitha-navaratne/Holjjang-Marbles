@@ -2,15 +2,15 @@ const turnDisplay = document.getElementById("display-turn");
 const callDisplay = document.getElementById("display-call");
 const selectBet = document.getElementById("select-bet");
 const selectCall = document.getElementById("select-call");
+const selectCallSection = document.getElementById("select-call-div");
 const submitBtn = document.getElementById("submit-btn");
 const resetBtn = document.getElementById("reset-btn");
 
 const player = {
-  score: 10,
+  score: 4,
   bet: 0,
   scoreDisplay: document.getElementById("player-score"),
   betDisplay: document.getElementById("player-bet"),
-  setDisplayValues: setDisplayValues,
 };
 
 const cpu = {
@@ -18,86 +18,44 @@ const cpu = {
   bet: 0,
   scoreDisplay: document.getElementById("cpu-score"),
   betDisplay: document.getElementById("cpu-bet"),
-  setDisplayValues: setDisplayValues,
 };
 
-let call = "";
-const callList = ["odd", "even"];
-
-let isPlayersTurn = true;
-let isBetValid = false;
+isPlayersTurn = true;
+isBetValid = false;
+isCallValid = false;
 
 const generateCpuBet = (score) =>
   score > 5
     ? Math.round(Math.random() * 4) + 1
     : Math.round(Math.random() * (score - 1)) + 1;
 
-const determineWinner = function (call, player1, player2) {
-  if (
-    (call === "even" && player2.bet % 2 === 0) ||
-    (call === "odd" && player2.bet % 2 !== 0)
-  ) {
-    player1.score += player2.bet;
-    player2.score -= player2.bet;
-  } else {
-    player1.score -= player2.bet;
-    player2.score += player2.bet;
-  }
-  player1.setDisplayValues();
-  player2.setDisplayValues();
-};
-
-function setDisplayValues() {
-  this.scoreDisplay.innerText = this.score;
-  this.betDisplay.innerText = this.bet;
-}
-
 selectBet.addEventListener("input", function () {
-  if (parseInt(this.value) > player.score) {
-    callDisplay.innerText = "Not enough money to make this bet!";
-    isBetValid = false;
-  } else {
+  if (parseInt(this.value) < player.score) {
     isBetValid = true;
-    callDisplay.innerText = "Make your call";
-    player.bet = parseInt(selectBet.value);
-    cpu.bet = generateCpuBet(cpu.score);
+    callDisplay.innerText = isCallValid
+      ? "Take your chances!"
+      : "Make your call!";
+  } else {
+    isBetValid = false;
+    callDisplay.innerText = "You do not have enough marbles for that bet!";
   }
 });
 
+selectCall.addEventListener("input", function () {
+  isCallValid = true;
+  callDisplay.innerText = isBetValid ? "Take your chances!" : "Place a bet!";
+});
+
 submitBtn.addEventListener("click", function () {
-  if (isBetValid) {
-    if (isPlayersTurn) {
-      call = selectCall.value;
-      callDisplay.innerText = `Player called ${call}!`;
-      determineWinner(call, player, cpu);
-      isPlayersTurn = false;
-      turnDisplay.innerText = "Opponent's turn";
-    } else {
-      call = callList[Math.round(Math.random())];
-      callDisplay.innerText = `CPU called ${call}!`;
-      determineWinner(call, cpu, player);
-      isPlayersTurn = true;
-      turnDisplay.innerText = "Your turn";
-    }
+  if (isBetValid && isCallValid) {
+    isPlayersTurn = false;
   } else {
-    callDisplay.innerText = "Please make a valid bet!";
+    callDisplay.innerText = isBetValid
+      ? "Please make a call!"
+      : "Please place a bet!";
   }
 });
 
 resetBtn.addEventListener("click", function () {
-  isPlayersTurn = true;
-  isBetValid = false;
-
-  for (let p of [player, cpu]) {
-    p.score = 10;
-    p.bet = 0;
-    p.scoreDisplay.innerText = "10";
-    p.betDisplay.innerText = "0";
-  }
-
-  turnDisplay.innerText = "Your turn!";
-  callDisplay.innerText = "Place your bet";
-
-  selectBet.value = "1";
-  selectCall.value = "odd";
+  console.log("click");
 });

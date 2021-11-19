@@ -11,7 +11,7 @@
     <h3 id="display-turn">Your turn</h3>
     <h2><span id="player-score">10</span> - <span id="cpu-score">10</span></h2>
     <h1><span id="player-bet">0</span> - <span id="cpu-bet">0</span></h1>
-    <p id="display-call">Place your bet</p>
+    <p id="display-call">Place your bet and make a call!</p>
     <div>
       <label for="select-bet">Select your bet</label>
       <select id="select-bet">
@@ -23,9 +23,10 @@
         <option value="5">5</option>
       </select>
     </div>
-    <div>
+    <div id="select-call-div">
       <label for="select-call">Select your call</label>
       <select id="select-call">
+        <option value="" disabled selected>-</option>
         <option value="odd">Odd</option>
         <option value="even">Even</option>
       </select>
