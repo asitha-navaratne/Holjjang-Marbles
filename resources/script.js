@@ -7,7 +7,7 @@ const submitBtn = document.getElementById("submit-btn");
 const resetBtn = document.getElementById("reset-btn");
 
 const player = {
-  score: 4,
+  score: 10,
   bet: 0,
   scoreDisplay: document.getElementById("player-score"),
   betDisplay: document.getElementById("player-bet"),
@@ -20,14 +20,19 @@ const cpu = {
   betDisplay: document.getElementById("cpu-bet"),
 };
 
-isPlayersTurn = true;
-isBetValid = false;
-isCallValid = false;
+let call = "";
+const callList = ["odd", "even"];
 
-const generateCpuBet = (score) =>
+let isPlayersTurn = true;
+let isBetValid = false;
+let isCallValid = false;
+
+const generateBet = (score) =>
   score > 5
     ? Math.round(Math.random() * 4) + 1
     : Math.round(Math.random() * (score - 1)) + 1;
+
+const determineWinner = function (call, player1, player2) {};
 
 selectBet.addEventListener("input", function () {
   if (parseInt(this.value) < player.score) {
@@ -48,7 +53,16 @@ selectCall.addEventListener("input", function () {
 
 submitBtn.addEventListener("click", function () {
   if (isBetValid && isCallValid) {
-    isPlayersTurn = false;
+    player.bet = parseInt(selectBet.value);
+    cpu.bet = generateBet(cpu.score);
+
+    if (isPlayersTurn) {
+      call = selectCall.value;
+      determineWinner(call, player, cpu);
+    } else {
+      call = callList[Math.round(Math.random())];
+      determineWinner(call, cpu, player);
+    }
   } else {
     callDisplay.innerText = isBetValid
       ? "Please make a call!"
