@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    to right bottom,
+    hsla(334, 100%, 34%, 1),
+    hsla(334, 100%, 51%, 1) 30%,
+    hsla(3, 100%, 58%, 1) 80%
+  );
+}
+
+.card {
+  padding: 50px;
+  background-image: linear-gradient(
+    hsla(178, 95%, 25%, 0.8),
+    hsla(179, 63%, 38%, 0.8)
+  );
+  border-radius: 5px;
+}
