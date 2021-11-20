@@ -1,75 +1,118 @@
 const turnDisplay = document.getElementById("display-turn");
 const callDisplay = document.getElementById("display-call");
-const selectBet = document.getElementById("select-bet");
+const selectWager = document.getElementById("select-wager");
 const selectCall = document.getElementById("select-call");
-const selectCallSection = document.getElementById("select-call-div");
-const submitBtn = document.getElementById("submit-btn");
+const selectCallDiv = document.getElementById("select-call-div");
+const playBtn = document.getElementById("play-btn");
 const resetBtn = document.getElementById("reset-btn");
 
 const player = {
   score: 10,
-  bet: 0,
+  wager: 0,
   scoreDisplay: document.getElementById("player-score"),
-  betDisplay: document.getElementById("player-bet"),
+  wagerDisplay: document.getElementById("player-wager"),
 };
 
 const cpu = {
   score: 10,
-  bet: 0,
+  wager: 0,
   scoreDisplay: document.getElementById("cpu-score"),
-  betDisplay: document.getElementById("cpu-bet"),
+  wagerDisplay: document.getElementById("cpu-wager"),
 };
 
 let call = "";
 const callList = ["odd", "even"];
 
 let isPlayersTurn = true;
-let isBetValid = false;
+let isWagerValid = false;
 let isCallValid = false;
 
-const generateBet = (score) =>
+const generateWager = (score) =>
   score > 5
     ? Math.round(Math.random() * 4) + 1
     : Math.round(Math.random() * (score - 1)) + 1;
 
-const determineWinner = function (call, player1, player2) {};
+const determineWinner = function (call, player1, player2) {
+  callDisplay.innerText = `${isPlayersTurn ? "Player" : "CPU"} called ${call}!`;
+  if (
+    (call === "even" && player2.wager % 2 === 0) ||
+    (call === "odd" && player2.wager % 2 !== 0)
+  ) {
+    player1.score += player1.wager;
+    player2.score -= player1.wager;
+  } else {
+    player1.score -= player1.wager;
+    player2.score += player1.wager;
+  }
+  player1.scoreDisplay.innerText = player1.score;
+  player2.scoreDisplay.innerText = player2.score;
+};
 
-selectBet.addEventListener("input", function () {
+const initialize = function () {
+  isWagerValid = false;
+  isCallValid = false;
+
+  selectWager.value = "";
+  selectCall.value = "";
+};
+
+selectWager.addEventListener("input", function () {
   if (parseInt(this.value) < player.score) {
-    isBetValid = true;
+    isWagerValid = true;
     callDisplay.innerText = isCallValid
       ? "Take your chances!"
       : "Make your call!";
   } else {
-    isBetValid = false;
-    callDisplay.innerText = "You do not have enough marbles for that bet!";
+    isWagerValid = false;
+    callDisplay.innerText = "You do not have enough marbles for that wager!";
   }
 });
 
 selectCall.addEventListener("input", function () {
   isCallValid = true;
-  callDisplay.innerText = isBetValid ? "Take your chances!" : "Place a bet!";
+  callDisplay.innerText = isWagerValid
+    ? "Take your chances!"
+    : "Place a wager!";
 });
 
-submitBtn.addEventListener("click", function () {
-  if (isBetValid && isCallValid) {
-    player.bet = parseInt(selectBet.value);
-    cpu.bet = generateBet(cpu.score);
+playBtn.addEventListener("click", function () {
+  if (isWagerValid && isCallValid) {
+    player.wager = parseInt(selectWager.value);
+    cpu.wager = generateWager(cpu.score);
 
+    player.wagerDisplay.innerText = player.wager;
+    cpu.wagerDisplay.innerText = cpu.wager;
     if (isPlayersTurn) {
       call = selectCall.value;
       determineWinner(call, player, cpu);
+      selectCallDiv.style.setProperty("visibility", "hidden");
+      turnDisplay.innerText = "Opponent's turn!";
+      isPlayersTurn = false;
     } else {
       call = callList[Math.round(Math.random())];
       determineWinner(call, cpu, player);
+      selectCallDiv.style.setProperty("visibility", "visible");
+      turnDisplay.innerText = "Your turn!";
+      isPlayersTurn = true;
     }
+    initialize();
   } else {
-    callDisplay.innerText = isBetValid
+    callDisplay.innerText = isWagerValid
       ? "Please make a call!"
-      : "Please place a bet!";
+      : "Please place a wager!";
   }
 });
 
 resetBtn.addEventListener("click", function () {
-  console.log("click");
+  initialize();
+  isPlayersTurn = true;
+  selectCallDiv.style.setProperty("visibility", "visible");
+  turnDisplay.innerText = "Your turn!";
+  callDisplay.innerText = "Place a wager and make a call!";
+  for (let p of [player, cpu]) {
+    p.score = 10;
+    p.wager = 0;
+    p.scoreDisplay.innerText = 10;
+    p.wagerDisplay.innerText = 0;
+  }
 });
