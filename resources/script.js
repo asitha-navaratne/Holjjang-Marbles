@@ -50,7 +50,7 @@ const determineWinner = function (call, player1, player2) {
 
 const initialize = function () {
   isWagerValid = false;
-  isCallValid = false;
+  isPlayersTurn ? (isCallValid = false) : (isCallValid = true);
 
   selectWager.value = "";
   selectCall.value = "";
