@@ -14,34 +14,14 @@
     <title>Holjjang Marbles</title>
   </head>
   <body>
-    <div class="card">
-      <h2 class="score">
-        <span id="player-score">10</span> - <span id="cpu-score">10</span>
-      </h2>
-      <h3 id="display-turn">Your turn</h3>
-      <h1><span id="player-wager">0</span> - <span id="cpu-wager">0</span></h1>
-      <p id="display-call">Place a wager and make a call!</p>
-      <div>
-        <label for="select-wager">Place a wager</label>
-        <select id="select-wager">
-          <option value="" disabled selected>-</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+    <img src="resources/images/logo.png" alt="Squid game logo" class="logo" />
+    <div class="container">
+      <div class="tile player-tile">
+        <h2 class="score">10</h2>
       </div>
-      <div id="select-call-div">
-        <label for="select-call">Choose your call</label>
-        <select id="select-call">
-          <option value="" disabled selected>-</option>
-          <option value="odd">Odd</option>
-          <option value="even">Even</option>
-        </select>
+      <div class="tile cpu-tile">
+        <h2 class="score">10</h2>
       </div>
-      <button id="play-btn">Play</button>
-      <button id="reset-btn">Reset</button>
     </div>
     <script src="resources/script.js"></script>
   </body>
