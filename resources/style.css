@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Shippori Antique", sans-serif;
+  text-align: center;
 }
 
 html {
@@ -21,7 +22,18 @@ body {
   );
 }
 
+.logo {
+  width: 120px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 10px 20px;
+}
+
 .container {
+  height: 80%;
+  width: 50%;
+  position: relative;
   display: flex;
   flex-direction: row;
   border-radius: 10px;
@@ -29,7 +41,8 @@ body {
 }
 
 .tile {
-  padding: 10px;
+  width: 100%;
+  padding: 10px 40px;
 }
 
 .player-tile {
@@ -39,17 +52,65 @@ body {
 
 .cpu-tile {
   border-radius: 0 10px 10px 0;
-  background-color: hsla(178, 95%, 25%, 1);
+  background-color: hsla(179, 95%, 25%, 1);
 }
 
 .score {
-  font-size: 5rem;
+  color: #fff;
+  font-size: 4rem;
+  margin-top: 40px;
 }
 
-.logo {
-  width: 120px;
+.wager {
+  font-size: 12rem;
+}
+
+table {
+  width: 100%;
+  margin-top: 25px;
+}
+
+td {
+  text-align: left;
+  padding: 15px 5px;
+}
+
+td label {
+  font-size: 1.5rem;
+}
+
+.select-box {
+  width: 100%;
+  padding: 5px 35px 5px 5px;
+  border-radius: 5px;
+  overflow: hidden;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.display-turn {
+  background-color: hsl(170, 97%, 73%);
   position: absolute;
-  left: 0;
-  top: 0;
-  margin: 10px 20px;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px 15px 7px 15px;
+  border-radius: 5px;
+}
+
+.display-call {
+  display: none;
+  background-color: hsl(133, 17%, 42%);
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px 15px 7px 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#display-turn {
+  font-size: 2rem;
 }
