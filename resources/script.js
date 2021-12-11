@@ -1,4 +1,3 @@
-const turnDisplay = document.getElementById("display-turn");
 const callDisplay = document.getElementById("display-call");
 const selectWager = document.getElementById("select-wager");
 const selectCall = document.getElementById("select-call");
@@ -86,13 +85,11 @@ playBtn.addEventListener("click", function () {
       call = selectCall.value;
       determineWinner(call, player, cpu);
       selectCallDiv.style.setProperty("visibility", "hidden");
-      turnDisplay.innerText = "Opponent's turn!";
       isPlayersTurn = false;
     } else {
       call = callList[Math.round(Math.random())];
       determineWinner(call, cpu, player);
       selectCallDiv.style.setProperty("visibility", "visible");
-      turnDisplay.innerText = "Your turn!";
       isPlayersTurn = true;
     }
     initialize();
@@ -107,7 +104,6 @@ resetBtn.addEventListener("click", function () {
   initialize();
   isPlayersTurn = true;
   selectCallDiv.style.setProperty("visibility", "visible");
-  turnDisplay.innerText = "Your turn!";
   callDisplay.innerText = "Place a wager and make a call!";
   for (let p of [player, cpu]) {
     p.score = 10;

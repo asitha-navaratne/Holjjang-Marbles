@@ -88,7 +88,7 @@ td label {
   appearance: none;
 }
 
-.display-turn {
+.display-call {
   background-color: hsl(170, 97%, 73%);
   position: absolute;
   top: 15%;
@@ -96,18 +96,6 @@ td label {
   transform: translate(-50%, -50%);
   padding: 5px 15px 7px 15px;
   border-radius: 5px;
-}
-
-.display-call {
-  display: none;
-  background-color: hsl(133, 17%, 42%);
-  position: absolute;
-  top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 5px 15px 7px 15px;
-  border-radius: 5px;
-  text-align: center;
 }
 
 #display-turn {
@@ -136,18 +124,18 @@ td label {
 }
 
 #play-btn {
-  border: 2px solid hsl(78, 100%, 28%);
-  background-color: hsl(78, 100%, 30%);
+  border: 2px solid hsl(78, 80%, 28%);
+  background-color: hsl(78, 80%, 30%);
 }
 
 #play-btn:hover {
-  border: 1px solid hsl(78, 100%, 33%);
-  background-color: hsl(78, 100%, 33%);
+  border: 1px solid hsl(78, 80%, 33%);
+  background-color: hsl(78, 80%, 33%);
 }
 
 #reset-btn {
-  border: 2px solid hsl(330, 83%, 48%);
-  background-color: hsl(321, 83%, 50%);
+  border: 2px solid hsl(330, 50%, 48%);
+  background-color: hsl(321, 50%, 50%);
 }
 
 #reset-btn:hover {
