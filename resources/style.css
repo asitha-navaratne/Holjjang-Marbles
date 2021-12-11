@@ -35,14 +35,13 @@ body {
   width: 50%;
   position: relative;
   display: flex;
-  flex-direction: row;
   border-radius: 10px;
   box-shadow: 5px 5px 50px rgba(0, 0, 0, 0.5);
 }
 
 .tile {
   width: 100%;
-  padding: 10px 40px;
+  padding: 0px 40px;
 }
 
 .player-tile {
@@ -58,7 +57,7 @@ body {
 .score {
   color: #fff;
   font-size: 4rem;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .wager {
@@ -67,23 +66,23 @@ body {
 
 table {
   width: 100%;
-  margin-top: 25px;
+  margin: 25px 0px;
 }
 
 td {
   text-align: left;
-  padding: 15px 5px;
+  padding: 10px 5px;
 }
 
 td label {
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .select-box {
   width: 100%;
-  padding: 5px 35px 5px 5px;
+  padding: 5px;
   border-radius: 5px;
-  overflow: hidden;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -113,4 +112,45 @@ td label {
 
 #display-turn {
   font-size: 2rem;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  height: 40px;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  margin: 0px 10px;
+  transition: 15ms;
+  font-weight: 600;
+}
+
+.btn:hover {
+  font-size: 150%;
+  cursor: pointer;
+}
+
+#play-btn {
+  border: 2px solid hsl(78, 100%, 28%);
+  background-color: hsl(78, 100%, 30%);
+}
+
+#play-btn:hover {
+  border: 1px solid hsl(78, 100%, 33%);
+  background-color: hsl(78, 100%, 33%);
+}
+
+#reset-btn {
+  border: 2px solid hsl(330, 83%, 48%);
+  background-color: hsl(321, 83%, 50%);
+}
+
+#reset-btn:hover {
+  border: 1px solid hsl(321, 83%, 55%);
+  background-color: hsl(321, 83%, 55%);
 }
