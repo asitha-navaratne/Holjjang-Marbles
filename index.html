@@ -14,7 +14,7 @@
     <title>Holjjang Marbles</title>
   </head>
   <body>
-    <img src="resources/images/logo.png" alt="Squid game logo" class="logo" />
+    <img src="resources/images/logo.png" alt="Squid Game logo" class="logo" />
     <div class="container">
       <div class="tile player-tile">
         <h2 class="score">10</h2>
@@ -33,16 +33,18 @@
               </select>
             </td>
           </tr>
-          <tr>
-            <td><label for="select-call">Choose your call</label></td>
-            <td>
-              <select id="select-call" class="select-box">
-                <option value="" disabled selected>-</option>
-                <option value="odd">Odd</option>
-                <option value="even">Even</option>
-              </select>
-            </td>
-          </tr>
+          <div id="select-call-div">
+            <tr>
+              <td><label for="select-call">Choose your call</label></td>
+              <td>
+                <select id="select-call" class="select-box">
+                  <option value="" disabled selected>-</option>
+                  <option value="odd">Odd</option>
+                  <option value="even">Even</option>
+                </select>
+              </td>
+            </tr>
+          </div>
         </table>
         <div class="btn-container">
           <button id="play-btn" class="btn">Play</button>
