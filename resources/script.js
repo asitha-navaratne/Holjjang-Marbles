@@ -1,9 +1,12 @@
 const callDisplay = document.getElementById("display-call");
 const selectWager = document.getElementById("select-wager");
 const selectCall = document.getElementById("select-call");
-const selectCallDiv = document.getElementById("select-call-div");
+const selectCallContainer = document.getElementById("select-call-container");
+const playerControls = document.getElementById("player-controls-container");
 const playBtn = document.getElementById("play-btn");
 const resetBtn = document.getElementById("reset-btn");
+const continueBtn = document.getElementById("continue-btn");
+const continueBtnContainer = document.getElementById("continue-btn-container");
 
 const player = {
   score: 10,
@@ -19,44 +22,20 @@ const cpu = {
   wagerDisplay: document.getElementById("cpu-wager"),
 };
 
-let call = "";
-const callList = ["odd", "even"];
-
 let isPlayersTurn = true;
 let isWagerValid = false;
 let isCallValid = false;
+
+let call = "";
+const callList = ["odd", "even"];
 
 const generateWager = (score) =>
   score > 5
     ? Math.round(Math.random() * 4) + 1
     : Math.round(Math.random() * (score - 1)) + 1;
 
-const determineWinner = function (call, player1, player2) {
-  callDisplay.innerText = `${isPlayersTurn ? "Player" : "CPU"} called ${call}!`;
-  if (
-    (call === "even" && player2.wager % 2 === 0) ||
-    (call === "odd" && player2.wager % 2 !== 0)
-  ) {
-    player1.score += player1.wager;
-    player2.score -= player1.wager;
-  } else {
-    player1.score -= player1.wager;
-    player2.score += player1.wager;
-  }
-  player1.scoreDisplay.innerText = player1.score;
-  player2.scoreDisplay.innerText = player2.score;
-};
-
-const initialize = function () {
-  isWagerValid = false;
-  isPlayersTurn ? (isCallValid = false) : (isCallValid = true);
-
-  selectWager.value = "";
-  selectCall.value = "";
-};
-
 selectWager.addEventListener("input", function () {
-  if (parseInt(this.value) < player.score) {
+  if (parseInt(this.value) <= player.score) {
     isWagerValid = true;
     callDisplay.innerText = isCallValid
       ? "Take your chances!"
@@ -71,44 +50,85 @@ selectCall.addEventListener("input", function () {
   isCallValid = true;
   callDisplay.innerText = isWagerValid
     ? "Take your chances!"
-    : "Place a wager!";
+    : "Place your wager!";
 });
 
 playBtn.addEventListener("click", function () {
-  if (isWagerValid && isCallValid) {
-    player.wager = parseInt(selectWager.value);
-    cpu.wager = generateWager(cpu.score);
-
-    player.wagerDisplay.innerText = player.wager;
-    cpu.wagerDisplay.innerText = cpu.wager;
-    if (isPlayersTurn) {
+  if (isPlayersTurn) {
+    if (isWagerValid && isCallValid) {
+      player.wager = parseInt(selectWager.value);
+      cpu.wager = generateWager(cpu.score);
       call = selectCall.value;
-      determineWinner(call, player, cpu);
-      selectCallDiv.style.setProperty("visibility", "hidden");
+      player.wagerDisplay.innerText = player.wager;
+      cpu.wagerDisplay.innerText = cpu.wager;
+      playerControls.classList.add("hidden");
+      continueBtnContainer.classList.remove("hidden");
+      if (
+        (cpu.wager % 2 === 0 && call === "even") ||
+        (cpu.wager % 2 !== 0 && call === "odd")
+      ) {
+        callDisplay.innerText = "Player wins!";
+        player.score += player.wager;
+        cpu.score -= player.wager;
+      } else {
+        callDisplay.innerText = "CPU wins!";
+        player.score -= player.wager;
+        cpu.score += cpu.wager;
+      }
+      player.scoreDisplay.innerText = player.score;
+      cpu.scoreDisplay.innerText = cpu.score;
       isPlayersTurn = false;
     } else {
-      call = callList[Math.round(Math.random())];
-      determineWinner(call, cpu, player);
-      selectCallDiv.style.setProperty("visibility", "visible");
-      isPlayersTurn = true;
+      callDisplay.innerText = isWagerValid
+        ? "Please make a valid call!"
+        : "Please place a valid wager!";
     }
-    initialize();
   } else {
-    callDisplay.innerText = isWagerValid
-      ? "Please make a call!"
-      : "Please place a wager!";
+    if (isWagerValid) {
+      player.wager = parseInt(selectWager.value);
+      cpu.wager = generateWager(cpu.score);
+      call = callList[Math.round(Math.random())];
+      player.wagerDisplay.innerText = player.wager;
+      cpu.wagerDisplay.innerText = cpu.wager;
+      playerControls.classList.add("hidden");
+      continueBtnContainer.classList.remove("hidden");
+      if (
+        (player.wager % 2 === 0 && call === "even") ||
+        (player.wager % 2 !== 0 && call === "odd")
+      ) {
+        callDisplay.innerText = "CPU wins!";
+        cpu.score += cpu.wager;
+        player.score -= cpu.wager;
+      } else {
+        callDisplay.innerText = "Player wins!";
+        cpu.score -= cpu.wager;
+        player.score += cpu.wager;
+        player.scoreDisplay.innerText = player.score;
+        cpu.scoreDisplay.innerText = cpu.score;
+        isPlayersTurn = true;
+      }
+    } else {
+      callDisplay.innerText = "Please place a valid wager!";
+    }
   }
 });
 
-resetBtn.addEventListener("click", function () {
-  initialize();
-  isPlayersTurn = true;
-  selectCallDiv.style.setProperty("visibility", "visible");
+continueBtn.addEventListener("click", function () {
   callDisplay.innerText = "Place a wager and make a call!";
-  for (let p of [player, cpu]) {
-    p.score = 10;
-    p.wager = 0;
-    p.scoreDisplay.innerText = 10;
-    p.wagerDisplay.innerText = 0;
+  isWagerValid = false;
+  selectCall.value = "";
+  selectWager.value = "";
+  player.wagerDisplay.innerText = 0;
+  cpu.wagerDisplay.innerText = 0;
+  if (!isPlayersTurn) {
+    selectCallContainer.classList.add("hidden");
+    isCallValid = true;
+  } else {
+    selectCallContainer.classList.remove("hidden");
+    isCallValid = false;
   }
+  playerControls.classList.remove("hidden");
+  continueBtnContainer.classList.add("hidden");
 });
+
+resetBtn.addEventListener("click", function () {});

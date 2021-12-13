@@ -19,22 +19,22 @@
       <div class="tile player-tile">
         <h2 class="score" id="player-score">10</h2>
         <h1 class="wager" id="player-wager">0</h1>
-        <table>
-          <tr>
-            <td><label for="select-wager">Place a wager</label></td>
-            <td>
-              <select id="select-wager" class="select-box">
-                <option value="" disabled selected>-</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </td>
-          </tr>
-          <div id="select-call-div">
+        <div id="player-controls-container">
+          <table>
             <tr>
+              <td><label for="select-wager">Place a wager</label></td>
+              <td>
+                <select id="select-wager" class="select-box">
+                  <option value="" disabled selected>-</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </td>
+            </tr>
+            <tr id="select-call-container">
               <td><label for="select-call">Choose your call</label></td>
               <td>
                 <select id="select-call" class="select-box">
@@ -44,11 +44,11 @@
                 </select>
               </td>
             </tr>
+          </table>
+          <div class="btn-container">
+            <button id="play-btn" class="btn play-btn">Play</button>
+            <button id="reset-btn" class="btn reset-btn">Reset</button>
           </div>
-        </table>
-        <div class="btn-container">
-          <button id="play-btn" class="btn">Play</button>
-          <button id="reset-btn" class="btn">Reset</button>
         </div>
       </div>
       <div class="tile cpu-tile">
@@ -57,6 +57,9 @@
       </div>
       <div class="display-call">
         <p id="display-call">Place a wager and make a call!</p>
+      </div>
+      <div id="continue-btn-container" class="hidden">
+        <button id="continue-btn" class="btn">Continue</button>
       </div>
     </div>
     <script src="resources/script.js"></script>
