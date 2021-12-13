@@ -131,4 +131,21 @@ continueBtn.addEventListener("click", function () {
   continueBtnContainer.classList.add("hidden");
 });
 
-resetBtn.addEventListener("click", function () {});
+resetBtn.addEventListener("click", function () {
+  isPlayersTurn = true;
+  isWagerValid = false;
+  isCallValid = false;
+
+  player.score = 10;
+  player.scoreDisplay.innerText = player.score;
+  cpu.score = 10;
+  cpu.scoreDisplay.innerText = cpu.score;
+
+  selectCall.value = "";
+  selectWager.value = "";
+
+  playerControls.classList.remove("hidden");
+  selectCallContainer.classList.remove("hidden");
+
+  callDisplay.innerText = "Place a wager and make a call!";
+});
