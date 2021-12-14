@@ -92,7 +92,7 @@ playBtn.addEventListener("click", function () {
         winDisplay.innerText = "Player wins!";
         player.score += player.wager;
         cpu.score -= player.wager;
-        if (player.score > 20) {
+        if (player.score >= 20) {
           player.score = 20;
           cpu.score = 0;
           continueBtn.innerHTML = "Reset";
@@ -101,7 +101,7 @@ playBtn.addEventListener("click", function () {
         winDisplay.innerText = "CPU wins!";
         player.score -= player.wager;
         cpu.score += player.wager;
-        if (cpu.score > 20) {
+        if (cpu.score >= 20) {
           player.score = 0;
           cpu.score = 20;
           continueBtn.innerHTML = "Reset";
@@ -133,7 +133,7 @@ playBtn.addEventListener("click", function () {
         winDisplay.innerText = "CPU wins!";
         cpu.score += cpu.wager;
         player.score -= cpu.wager;
-        if (cpu.score > 20) {
+        if (cpu.score >= 20) {
           player.score = 0;
           cpu.score = 20;
           continueBtn.innerHTML = "Reset";
@@ -142,7 +142,7 @@ playBtn.addEventListener("click", function () {
         winDisplay.innerText = "Player wins!";
         cpu.score -= cpu.wager;
         player.score += cpu.wager;
-        if (player.score > 20) {
+        if (player.score >= 20) {
           player.score = 20;
           cpu.score = 0;
           continueBtn.innerHTML = "Reset";
