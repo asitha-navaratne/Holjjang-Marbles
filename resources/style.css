@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Shippori Antique", sans-serif;
-  text-align: center;
 }
 
 html {
@@ -25,9 +24,9 @@ body {
 .logo {
   width: 120px;
   position: absolute;
-  left: 0;
   top: 0;
-  margin: 10px 20px;
+  left: 0;
+  margin: 12px 18px;
 }
 
 .container {
@@ -35,13 +34,15 @@ body {
   width: 50%;
   position: relative;
   display: flex;
-  border-radius: 10px;
+  border: 2px solid #000;
+  border-radius: 13px;
   box-shadow: 5px 5px 50px rgba(0, 0, 0, 0.5);
 }
 
 .tile {
   width: 100%;
   padding: 0px 40px;
+  text-align: center;
 }
 
 .player-tile {
@@ -57,7 +58,7 @@ body {
 .score {
   color: #fff;
   font-size: 4rem;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .wager {
@@ -66,7 +67,7 @@ body {
 
 table {
   width: 100%;
-  margin: 25px 0px;
+  margin: 8px 0px 35px;
 }
 
 td {
@@ -82,41 +83,19 @@ td label {
 .select-box {
   width: 100%;
   padding: 5px;
+  text-align: center;
+  border: 2px solid #000;
   border-radius: 5px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-.display-call {
-  background-color: hsl(170, 97%, 73%);
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 5px 15px 7px 15px;
-  border-radius: 5px;
-}
-
-#display-win-container {
-  background-color: hsl(170, 97%, 73%);
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 5px 15px 7px 15px;
-  border-radius: 5px;
-}
-
-#continue-btn-container {
-  position: absolute;
-  top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.select-box:focus {
+  outline: none;
 }
 
 .btn-container {
-  width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -124,11 +103,11 @@ td label {
 .btn {
   height: 40px;
   width: 100px;
+  font-weight: 600;
   border: none;
   border-radius: 5px;
   margin: 0px 10px;
-  transition: 15ms;
-  font-weight: 600;
+  transition: 50ms;
 }
 
 .btn:hover {
@@ -138,22 +117,75 @@ td label {
 
 .play-btn {
   border: 2px solid hsl(78, 80%, 28%);
-  background-color: hsl(78, 80%, 30%);
+  background-color: hsl(78, 79%, 44%);
 }
 
 .play-btn:hover {
-  border: 1px solid hsl(78, 80%, 33%);
-  background-color: hsl(78, 80%, 33%);
+  background-color: hsl(78, 79%, 55%);
 }
 
 .reset-btn {
-  border: 2px solid hsl(330, 50%, 48%);
-  background-color: hsl(321, 50%, 50%);
+  border: 2px solid hsl(321, 50%, 38%);
+  background-color: hsl(321, 80%, 55%);
 }
 
 .reset-btn:hover {
-  border: 1px solid hsl(321, 83%, 55%);
-  background-color: hsl(321, 83%, 55%);
+  background-color: hsl(321, 100%, 65%);
+}
+
+.continue-btn {
+  border: 2px solid hsl(57, 100%, 30%);
+  background-color: hsl(57, 60%, 50%);
+}
+
+.continue-btn:hover {
+  background-color: hsl(57, 100%, 60%);
+}
+
+.display-call-container {
+  max-width: 150px;
+  background-color: hsl(170, 97%, 73%);
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 5px 15px 7px 15px;
+  border-radius: 5px;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.display-win-container {
+  max-width: 150px;
+  background-color: hsl(17, 97%, 73%);
+  font-size: 2rem;
+  text-align: center;
+  padding: 5px 15px 7px 15px;
+  border-radius: 10px;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.continue-btn-container {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.player-winner {
+  z-index: 0;
+  background-color: hsla(179, 63%, 48%, 1);
+  outline: 2px solid #fff;
+  border: 2px solid #fff;
+}
+
+.cpu-winner {
+  background-color: hsla(179, 95%, 35%, 1);
+  outline: 2px solid #fff;
+  border: 2px solid #fff;
 }
 
 .hidden {

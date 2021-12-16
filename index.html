@@ -4,28 +4,28 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="resources/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Shippori+Antique&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="resources/style.css" />
     <title>Holjjang Marbles</title>
   </head>
   <body>
     <img src="resources/images/logo.png" alt="Squid Game logo" class="logo" />
     <div class="container">
-      <div class="tile player-tile">
-        <h2 class="score" id="player-score">10</h2>
-        <h1 class="wager" id="player-wager">0</h1>
+      <div id="player-tile" class="tile player-tile">
+        <h3 id="player-score" class="score">10</h3>
+        <h2 id="player-wager" class="wager">0</h2>
         <div id="player-controls-container">
           <table>
             <tr>
               <td><label for="select-wager">Place a wager</label></td>
               <td>
                 <select id="select-wager" class="select-box">
-                  <option value="" disabled selected>-</option>
+                  <option value="" disabled selected>&#8722;</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -38,7 +38,7 @@
               <td><label for="select-call">Choose your call</label></td>
               <td>
                 <select id="select-call" class="select-box">
-                  <option value="" disabled selected>-</option>
+                  <option value="" disabled selected>&#8722;</option>
                   <option value="odd">Odd</option>
                   <option value="even">Even</option>
                 </select>
@@ -51,18 +51,18 @@
           </div>
         </div>
       </div>
-      <div class="tile cpu-tile">
-        <h2 class="score" id="cpu-score">10</h2>
-        <h1 class="wager" id="cpu-wager">0</h1>
+      <div id="cpu-tile" class="tile cpu-tile">
+        <h2 id="cpu-score" class="score">10</h2>
+        <h1 id="cpu-wager" class="wager">0</h1>
       </div>
-      <div class="display-call">
-        <p id="display-call">Place a wager and make a call!</p>
+      <div class="display-call-container">
+        <p id="display-call">Place a wager and make a call! 😎</p>
       </div>
-      <div id="display-win-container" class="hidden">
+      <div id="display-win-container" class="display-win-container hidden">
         <p id="display-win"></p>
       </div>
-      <div id="continue-btn-container" class="hidden">
-        <button id="continue-btn" class="btn">Continue</button>
+      <div id="continue-btn-container" class="continue-btn-container hidden">
+        <button id="continue-btn" class="btn continue-btn">Continue</button>
       </div>
     </div>
     <script src="resources/script.js"></script>

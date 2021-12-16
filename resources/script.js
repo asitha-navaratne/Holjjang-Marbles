@@ -1,3 +1,5 @@
+const playerTile = document.getElementById("player-tile");
+const cpuTile = document.getElementById("cpu-tile");
 const callDisplay = document.getElementById("display-call");
 const winDisplay = document.getElementById("display-win");
 const selectWager = document.getElementById("select-wager");
@@ -52,25 +54,25 @@ const reset = function () {
   playerControls.classList.remove("hidden");
   selectCallContainer.classList.remove("hidden");
 
-  callDisplay.innerText = "Place a wager and make a call!";
+  callDisplay.innerText = "Place a wager and make a call! 😎";
 };
 
 selectWager.addEventListener("input", function () {
   if (parseInt(this.value) <= player.score) {
     isWagerValid = true;
     callDisplay.innerText = isCallValid
-      ? "Take your chances!"
+      ? "Take your chances! 🙉"
       : "Make your call!";
   } else {
     isWagerValid = false;
-    callDisplay.innerText = "You do not have enough marbles for that wager!";
+    callDisplay.innerText = "You do not have enough marbles for that wager! ❌";
   }
 });
 
 selectCall.addEventListener("input", function () {
   isCallValid = true;
   callDisplay.innerText = isWagerValid
-    ? "Take your chances!"
+    ? "Take your chances! 🙉"
     : "Place your wager!";
 });
 
@@ -89,7 +91,8 @@ playBtn.addEventListener("click", function () {
         (cpu.wager % 2 === 0 && call === "even") ||
         (cpu.wager % 2 !== 0 && call === "odd")
       ) {
-        winDisplay.innerText = "Player wins!";
+        winDisplay.innerText = "Player wins! 🎉";
+        playerTile.classList.add("player-winner");
         player.score += player.wager;
         cpu.score -= player.wager;
         if (player.score >= 20) {
@@ -98,7 +101,8 @@ playBtn.addEventListener("click", function () {
           continueBtn.innerHTML = "Reset";
         }
       } else {
-        winDisplay.innerText = "CPU wins!";
+        winDisplay.innerText = "CPU wins! 😪";
+        cpuTile.classList.add("cpu-winner");
         player.score -= player.wager;
         cpu.score += player.wager;
         if (cpu.score >= 20) {
@@ -113,8 +117,8 @@ playBtn.addEventListener("click", function () {
       isPlayersTurn = false;
     } else {
       callDisplay.innerText = isWagerValid
-        ? "Please make a valid call!"
-        : "Please place a valid wager!";
+        ? "Please make a valid call! ❌"
+        : "Please place a valid wager! ❌";
     }
   } else {
     if (isWagerValid) {
@@ -130,7 +134,8 @@ playBtn.addEventListener("click", function () {
         (player.wager % 2 === 0 && call === "even") ||
         (player.wager % 2 !== 0 && call === "odd")
       ) {
-        winDisplay.innerText = "CPU wins!";
+        winDisplay.innerText = "CPU wins! 😪";
+        cpuTile.classList.add("cpu-winner");
         cpu.score += cpu.wager;
         player.score -= cpu.wager;
         if (cpu.score >= 20) {
@@ -139,7 +144,8 @@ playBtn.addEventListener("click", function () {
           continueBtn.innerHTML = "Reset";
         }
       } else {
-        winDisplay.innerText = "Player wins!";
+        winDisplay.innerText = "Player wins! 🎉";
+        playerTile.classList.add("player-winner");
         cpu.score -= cpu.wager;
         player.score += cpu.wager;
         if (player.score >= 20) {
@@ -148,12 +154,12 @@ playBtn.addEventListener("click", function () {
           continueBtn.innerHTML = "Reset";
         }
       }
-      callDisplay.innerText = `CPU called ${call}`;
+      callDisplay.innerText = `CPU called ${call}!`;
       player.scoreDisplay.innerText = player.score;
       cpu.scoreDisplay.innerText = cpu.score;
       isPlayersTurn = true;
     } else {
-      callDisplay.innerText = "Please place a valid wager!";
+      callDisplay.innerText = "Please place a valid wager! ❌";
     }
   }
 });
@@ -179,11 +185,15 @@ continueBtn.addEventListener("click", function () {
 
     playerControls.classList.remove("hidden");
 
-    callDisplay.innerText = "Place a wager and make a call!";
+    callDisplay.innerText = isPlayersTurn
+      ? "Place a wager and make a call!"
+      : "Place a wager!";
   }
   player.wagerDisplay.innerText = 0;
   cpu.wagerDisplay.innerText = 0;
 
+  playerTile.classList.remove("player-winner");
+  cpuTile.classList.remove("cpu-winner");
   continueBtnContainer.classList.add("hidden");
   winDisplayContainer.classList.add("hidden");
 });
