@@ -174,7 +174,7 @@ continueBtn.addEventListener("click", function () {
 
   for (p of [player, cpu]) {
     p.wagerDisplay.innerText = 0;
-    p.tile.callList.remove(`${p.winningTileClass}`);
+    p.tile.classList.remove(`${p.winningTileClass}`);
   }
 
   continueBtnContainer.classList.add("hidden");
