@@ -7,4 +7,6 @@ opponent. The game continues until one player runs out of marbles, at which poin
 
 <p align="justify">I did this project since I wanted to work on something that was my own idea, while also improving my flow with the basics of HTML, CSS and vanilla JavaScript.
 Since I developed this on my own, it can be a bit rough around the edges, something I might return to fix. The website is not responsive at all, since I couldn't come up with a
-proper design for a mobile layout. This too is something I want to return to work on, though I haven't got my hopes up in this regard.</p>
+proper design for a mobile layout. This too is something I want to return to work on, though I haven't got my hopes up in this regard since the layout just does not seem to be the kind which can be adapted for a mobile interface.</p>
+
+<p align="justify">Since I've been learning JavaScript libraries and frameworks like React and Vue, I have come to appreciate their power and convenience in developing web applications. However, I hope to still enjoy creating small websites like these from time-to-time using just plain old HTML, CSS and JS.</p>
