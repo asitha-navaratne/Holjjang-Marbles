@@ -1,9 +1,7 @@
-const playerTile = document.getElementById("player-tile");
-const cpuTile = document.getElementById("cpu-tile");
-const callDisplay = document.getElementById("display-call");
-const winDisplay = document.getElementById("display-win");
 const selectWager = document.getElementById("select-wager");
 const selectCall = document.getElementById("select-call");
+const callDisplay = document.getElementById("display-call");
+const winDisplay = document.getElementById("display-win");
 const playBtn = document.getElementById("play-btn");
 const resetBtn = document.getElementById("reset-btn");
 const continueBtn = document.getElementById("continue-btn");
@@ -13,15 +11,23 @@ const playerControls = document.getElementById("player-controls-container");
 const continueBtnContainer = document.getElementById("continue-btn-container");
 
 const player = {
+  name: "Player",
   score: 10,
   wager: 0,
+  emoji: "🎉",
+  winningTileClass: "player-winner",
+  tile: document.getElementById("player-tile"),
   scoreDisplay: document.getElementById("player-score"),
   wagerDisplay: document.getElementById("player-wager"),
 };
 
 const cpu = {
+  name: "CPU",
   score: 10,
   wager: 0,
+  emoji: "😪",
+  winningTileClass: "cpu-winner",
+  tile: document.getElementById("cpu-tile"),
   scoreDisplay: document.getElementById("cpu-score"),
   wagerDisplay: document.getElementById("cpu-wager"),
 };
@@ -33,20 +39,59 @@ let isCallValid = false;
 let call = "";
 const callList = ["odd", "even"];
 
-const generateWager = (score) =>
+const generateCpuWager = (score) =>
   score > 5
     ? Math.round(Math.random() * 4) + 1
     : Math.round(Math.random() * (score - 1)) + 1;
+
+const displayWinner = function (player1, player2, call) {
+  callDisplay.innerText = `${player1.name} called ${call}!`;
+  player1.wagerDisplay.innerText = player1.wager;
+  player2.wagerDisplay.innerText = player2.wager;
+
+  playerControls.classList.add("hidden");
+  continueBtnContainer.classList.remove("hidden");
+  winDisplayContainer.classList.remove("hidden");
+
+  if (
+    (player2.wager % 2 === 0 && call === "even") ||
+    (player2.wager % 2 !== 0 && call === "odd")
+  ) {
+    winDisplay.innerText = `${player1.name} wins! ${player1.emoji}`;
+    player1.tile.classList.add(`${player1.winningTileClass}`);
+    player1.score += player1.wager;
+    player2.score -= player1.wager;
+
+    if (player1.score >= 20) {
+      player1.score = 20;
+      player2.score = 0;
+      continueBtn.innerHTML = "Reset";
+    }
+  } else {
+    winDisplay.innerText = `${player2.name} wins! ${player2.emoji}`;
+    player2.tile.classList.add(`${player2.winningTileClass}`);
+    player1.score -= player1.wager;
+    player2.score += player1.wager;
+    if (player2.score >= 20) {
+      player1.score = 0;
+      player2.score = 20;
+      continueBtn.innerHTML = "Reset";
+    }
+  }
+
+  player1.scoreDisplay.innerText = player1.score;
+  player2.scoreDisplay.innerText = player2.score;
+};
 
 const reset = function () {
   isPlayersTurn = true;
   isWagerValid = false;
   isCallValid = false;
 
-  player.score = 10;
-  cpu.score = 10;
-  player.scoreDisplay.innerText = player.score;
-  cpu.scoreDisplay.innerText = cpu.score;
+  for (p of [player, cpu]) {
+    p.score = 10;
+    p.scoreDisplay.innerText = p.score;
+  }
 
   selectCall.value = "";
   selectWager.value = "";
@@ -77,43 +122,13 @@ selectCall.addEventListener("input", function () {
 });
 
 playBtn.addEventListener("click", function () {
+  player.wager = parseInt(selectWager.value);
+  cpu.wager = generateCpuWager(cpu.score);
+
   if (isPlayersTurn) {
     if (isWagerValid && isCallValid) {
-      player.wager = parseInt(selectWager.value);
-      cpu.wager = generateWager(cpu.score);
       call = selectCall.value;
-      player.wagerDisplay.innerText = player.wager;
-      cpu.wagerDisplay.innerText = cpu.wager;
-      playerControls.classList.add("hidden");
-      continueBtnContainer.classList.remove("hidden");
-      winDisplayContainer.classList.remove("hidden");
-      if (
-        (cpu.wager % 2 === 0 && call === "even") ||
-        (cpu.wager % 2 !== 0 && call === "odd")
-      ) {
-        winDisplay.innerText = "Player wins! 🎉";
-        playerTile.classList.add("player-winner");
-        player.score += player.wager;
-        cpu.score -= player.wager;
-        if (player.score >= 20) {
-          player.score = 20;
-          cpu.score = 0;
-          continueBtn.innerHTML = "Reset";
-        }
-      } else {
-        winDisplay.innerText = "CPU wins! 😪";
-        cpuTile.classList.add("cpu-winner");
-        player.score -= player.wager;
-        cpu.score += player.wager;
-        if (cpu.score >= 20) {
-          player.score = 0;
-          cpu.score = 20;
-          continueBtn.innerHTML = "Reset";
-        }
-      }
-      callDisplay.innerText = `Player called ${call}!`;
-      player.scoreDisplay.innerText = player.score;
-      cpu.scoreDisplay.innerText = cpu.score;
+      displayWinner(player, cpu, call);
       isPlayersTurn = false;
     } else {
       callDisplay.innerText = isWagerValid
@@ -122,41 +137,8 @@ playBtn.addEventListener("click", function () {
     }
   } else {
     if (isWagerValid) {
-      player.wager = parseInt(selectWager.value);
-      cpu.wager = generateWager(cpu.score);
       call = callList[Math.round(Math.random())];
-      player.wagerDisplay.innerText = player.wager;
-      cpu.wagerDisplay.innerText = cpu.wager;
-      playerControls.classList.add("hidden");
-      continueBtnContainer.classList.remove("hidden");
-      winDisplayContainer.classList.remove("hidden");
-      if (
-        (player.wager % 2 === 0 && call === "even") ||
-        (player.wager % 2 !== 0 && call === "odd")
-      ) {
-        winDisplay.innerText = "CPU wins! 😪";
-        cpuTile.classList.add("cpu-winner");
-        cpu.score += cpu.wager;
-        player.score -= cpu.wager;
-        if (cpu.score >= 20) {
-          player.score = 0;
-          cpu.score = 20;
-          continueBtn.innerHTML = "Reset";
-        }
-      } else {
-        winDisplay.innerText = "Player wins! 🎉";
-        playerTile.classList.add("player-winner");
-        cpu.score -= cpu.wager;
-        player.score += cpu.wager;
-        if (player.score >= 20) {
-          player.score = 20;
-          cpu.score = 0;
-          continueBtn.innerHTML = "Reset";
-        }
-      }
-      callDisplay.innerText = `CPU called ${call}!`;
-      player.scoreDisplay.innerText = player.score;
-      cpu.scoreDisplay.innerText = cpu.score;
+      displayWinner(cpu, player, call);
       isPlayersTurn = true;
     } else {
       callDisplay.innerText = "Please place a valid wager! ❌";
@@ -189,11 +171,12 @@ continueBtn.addEventListener("click", function () {
       ? "Place a wager and make a call!"
       : "Place a wager!";
   }
-  player.wagerDisplay.innerText = 0;
-  cpu.wagerDisplay.innerText = 0;
 
-  playerTile.classList.remove("player-winner");
-  cpuTile.classList.remove("cpu-winner");
+  for (p of [player, cpu]) {
+    p.wagerDisplay.innerText = 0;
+    p.tile.callList.remove(`${p.winningTileClass}`);
+  }
+
   continueBtnContainer.classList.add("hidden");
   winDisplayContainer.classList.add("hidden");
 });
