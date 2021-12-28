@@ -72,6 +72,7 @@ const displayWinner = function (player1, player2, call) {
     player2.tile.classList.add(`${player2.winningTileClass}`);
     player1.score -= player1.wager;
     player2.score += player1.wager;
+
     if (player2.score >= 20) {
       player1.score = 0;
       player2.score = 20;
